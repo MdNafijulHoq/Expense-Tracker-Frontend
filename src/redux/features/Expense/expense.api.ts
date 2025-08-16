@@ -7,6 +7,7 @@ export const expenseApi = baseApi.injectEndpoints({
         url: "/expense/create-expense",
         method: "POST",
         data: expenseInfo,
+        credentials: "include",
       }),
       invalidatesTags: ["EXPENSE"],
     }),
@@ -31,6 +32,7 @@ export const expenseApi = baseApi.injectEndpoints({
         url: `/expense/update-expense/${expenseId}`,
         method: "PATCH",
         data: expenseInfo,
+        credentials: "include",
       }),
       invalidatesTags: ["EXPENSE"],
     }),
@@ -38,6 +40,7 @@ export const expenseApi = baseApi.injectEndpoints({
       query: (expenseId) => ({
         url: `/expense/remove-expense/${expenseId}`,
         method: "DELETE",
+        credentials: "include",
       }),
       invalidatesTags: ["EXPENSE"],
     }),

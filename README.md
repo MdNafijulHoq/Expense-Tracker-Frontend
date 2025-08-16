@@ -2,6 +2,41 @@
 
 A modern expense tracking application built with React and TypeScript that helps users manage their finances efficiently.
 
+## Please Login before doing any action on Expense section.
+
+Because for Expense Route - Create, Update and Delete operations are protected by the checkAuth middleware.
+
+- You must be logged in to perform these actions.
+
+- A valid JWT access token is required, which is set in cookies after login.
+
+- If no token is provided or the token is invalid, those operations will not execute
+
+```python
+router.post(
+  "/create-expense",
+  validateRequest(createExpenseSchema),
+  checkAuth(),
+  ExpenseControllers.createExpense
+);
+```
+
+```python
+router.patch(
+  "/update-expense/:id",
+  checkAuth(),
+  ExpenseControllers.updateExpense
+);
+```
+```python
+router.delete(
+  "/remove-expense/:id",
+  checkAuth(),
+  ExpenseControllers.deleteExpense
+);
+
+```
+
 # Features
 
 - User Authentication: JWT-based secure login and registration

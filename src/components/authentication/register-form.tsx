@@ -41,7 +41,7 @@ const registerSchema = z
 export function RegisterForm({
   className,
   ...props
-}: React.ComponentProps<"form">) {
+}: React.ComponentProps<"div">) {
   const [register] = useRegisterMutation();
   const navigate = useNavigate();
 

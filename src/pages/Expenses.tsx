@@ -30,7 +30,7 @@ interface IExpenseType {
 
 const Expenses = () => {
   const { data } = useGetExpensesQuery(undefined);
-  console.log("data is", data);
+  // console.log("data is", data);
   const dispatch = useDispatch();
 
   const totalExpense =
@@ -50,11 +50,18 @@ const Expenses = () => {
     dispatch(setValue(res.data));
   };
 
-  const handleRemoveDivision = async (divisionId: string) => {
+  const handleRemoveExpense = async (divisionId: string) => {
     const toastId = toast.loading("Removing...");
-    const res = await removeExpense(divisionId).unwrap();
-    if (res.success) {
-      toast.success("Division Remove Successfully", { id: toastId });
+    try {
+      const res = await removeExpense(divisionId).unwrap();
+      if (res.success) {
+        toast.success("Expense Remove Successfully", { id: toastId });
+      } else {
+        toast.error("Something wrong!", { id: toastId });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something wrong!", { id: toastId });
     }
   };
 
@@ -62,7 +69,10 @@ const Expenses = () => {
     <div className="w-full max-w-7xl mx-auto px-5">
       <div className="flex justify-between my-8">
         <h1 className="text-xl font-semibold">
-          Total Expense - <span className="text-sm rounded-full p-3 bg-blue-600">{totalExpense}</span>
+          Total Expense -{" "}
+          <span className="text-sm rounded-full p-3 bg-blue-600">
+            {totalExpense}
+          </span>
         </h1>
         <AddExpenseModal />
       </div>
@@ -98,7 +108,7 @@ const Expenses = () => {
                 </TableCell>
                 <TableCell className="text-right">
                   <DeleteConfirmation
-                    onConfirm={() => handleRemoveDivision(item._id)}
+                    onConfirm={() => handleRemoveExpense(item._id)}
                   >
                     <Button className="cursor-pointer" size="sm">
                       <Trash2 />

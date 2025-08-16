@@ -1,12 +1,18 @@
 import ExpensePieChart from "@/components/ExpensePieChart";
 import { Button } from "@/components/ui/button";
 import { useGetExpensesQuery } from "@/redux/features/Expense/expense.api";
+import { Loader } from "lucide-react";
 import { Link } from "react-router";
 
 const HomePage = () => {
   const { data: expenses = [], isLoading } = useGetExpensesQuery(undefined);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="flex items-center justify-center h-screen w-full animate-spin">
+        <Loader />
+      </div>
+    );
 
   return (
     <div className="min-h-screen">

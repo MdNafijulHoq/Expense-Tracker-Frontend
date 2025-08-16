@@ -37,6 +37,38 @@ import {
   selectValue,
 } from "@/redux/features/Expense/expense.slice";
 
+const expenseCategories = [
+  { id: 1, value: "Food", label: "Food" },
+  { id: 2, value: "Groceries", label: "Groceries" },
+  { id: 3, value: "Transport", label: "Transport" },
+  { id: 4, value: "Fuel", label: "Fuel" },
+  { id: 5, value: "Parking", label: "Parking" },
+  { id: 6, value: "Shopping", label: "Shopping" },
+  { id: 7, value: "Clothing", label: "Clothing" },
+  { id: 8, value: "Utilities", label: "Utilities" },
+  { id: 9, value: "Rent", label: "Rent" },
+  { id: 10, value: "Mortgage", label: "Mortgage" },
+  { id: 11, value: "Healthcare", label: "Healthcare" },
+  { id: 12, value: "Medicines", label: "Medicines" },
+  { id: 13, value: "Insurance", label: "Insurance" },
+  { id: 14, value: "Education", label: "Education" },
+  { id: 15, value: "Entertainment", label: "Entertainment" },
+  { id: 16, value: "Dining Out", label: "Dining Out" },
+  { id: 17, value: "Coffee/Tea", label: "Coffee/Tea" },
+  { id: 18, value: "Subscriptions", label: "Subscriptions" },
+  { id: 19, value: "Mobile", label: "Mobile" },
+  { id: 20, value: "Internet", label: "Internet" },
+  { id: 21, value: "Gifts", label: "Gifts" },
+  { id: 22, value: "Donations", label: "Donations" },
+  { id: 23, value: "Personal Care", label: "Personal Care" },
+  { id: 24, value: "Home Maintenance", label: "Home Maintenance" },
+  { id: 25, value: "Pet Care", label: "Pet Care" },
+  { id: 26, value: "Child Care", label: "Child Care" },
+  { id: 27, value: "Taxi/RideShare", label: "Taxi/RideShare" },
+  { id: 28, value: "Public Transport", label: "Public Transport" },
+  { id: 29, value: "Others", label: "Others" },
+];
+
 const expenseSchema = z.object({
   title: z.string({ error: "title is Required" }),
   amount: z.string().min(1, "amount is required"),
@@ -59,24 +91,24 @@ const UpdateExpenseModal = () => {
     },
   });
 
-//   console.log(value?._id);
+  //   console.log(value?._id);
 
   useEffect(() => {
     if (value) {
       form.reset({
         title: value.title || "",
         amount: String(value.amount) || "",
-        category: ""
+        category: "",
       });
     }
   }, [value, form]);
 
   const onSubmit = async (data: z.infer<typeof expenseSchema>) => {
-    if(!data.category){
-        return toast.error("Choose category")
+    if (!data.category) {
+      return toast.error("Choose category");
     }
-    if(!data.date){
-        return toast.error("Choose date")
+    if (!data.date) {
+      return toast.error("Choose date");
     }
     // console.log(data.date);
     const expenseInfo = {
@@ -167,10 +199,11 @@ const UpdateExpenseModal = () => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="Food">Food</SelectItem>
-                      <SelectItem value="Transport">Transport</SelectItem>
-                      <SelectItem value="Shopping">Shopping</SelectItem>
-                      <SelectItem value="Others">Others</SelectItem>
+                      {expenseCategories.map((category) => (
+                        <SelectItem key={category.id} value={category.value}>
+                          {category.label}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
 

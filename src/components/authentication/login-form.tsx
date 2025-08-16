@@ -26,7 +26,7 @@ const loginSchema = z.object({
 export function LoginForm({
   className,
   ...props
-}: React.ComponentProps<"form">) {
+}: React.ComponentProps<"div">) {
   const navigate = useNavigate();
   const [login] = useLoginMutation();
 

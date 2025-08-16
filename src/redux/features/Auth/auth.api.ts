@@ -7,9 +7,10 @@ export const authApi = baseApi.injectEndpoints({
         url: "/user/login",
         method: "POST",
         data: userInfo,
+        credentials: "include",
       }),
     }),
-     register: builder.mutation({
+    register: builder.mutation({
       query: (userInfo) => ({
         url: "/user/register",
         method: "POST",
@@ -27,6 +28,7 @@ export const authApi = baseApi.injectEndpoints({
       query: () => ({
         url: "/user/me",
         method: "GET",
+        credentials: "include",
       }),
       providesTags: ["USER"],
     }),

@@ -7,15 +7,34 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const ExpensePieChart = ({ expenses }) => {
-  // Group expenses by category
-  const expensesByCategory = expenses.reduce((acc: number, expense: number) => {
-    const { category, amount } = expense;
+export interface IExpRes {
+  _id: string
+  title: string
+  amount: number
+  category: string
+  date: string
+  createdAt: string
+  updatedAt: string
+}
+interface PieChartData {
+  name: string;
+  value: number;
+}
+
+interface ExpensePieChartProps {
+  expenses: IExpRes[];
+}
+const ExpensePieChart = ({ expenses } : ExpensePieChartProps) => {
+
+  // console.log("pie", expenses);
+
+  const expensesByCategory = expenses.reduce((acc: Record<string, number>, expense: IExpRes) => {
+    const { category, amount }  = expense;
     acc[category] = (acc[category] || 0) + amount;
     return acc;
   }, {});
 
-  const data = Object.entries(expensesByCategory).map(([name, value]) => ({
+  const data: PieChartData[] = Object.entries(expensesByCategory).map(([name, value]) => ({
     name,
     value,
   }));
@@ -42,10 +61,10 @@ const ExpensePieChart = ({ expenses }) => {
             fill="#8884d8"
             dataKey="value"
             label={({ name, percent }) =>
-              `${name}: ${(percent * 100).toFixed(0)}%`
+              `${name}: ${(percent! * 100).toFixed(0)}%`
             }
           >
-            {data.map((entry, index) => (
+            {data.map((_, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={COLORS[index % COLORS.length]}
