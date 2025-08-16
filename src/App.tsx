@@ -1,10 +1,18 @@
-import { Button } from "./components/ui/button";
+import { RouterProvider } from "react-router";
+import { ThemeProvider } from "./provider/theme.provider";
+import { router } from "./router";
+import { Toaster } from "./components/ui/sonner";
+import { Provider as ReduxProvider } from "react-redux";
+import { store } from "./redux/store";
 
 const App = () => {
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center">
-      <Button>Click me</Button>
-    </div>
+    <ReduxProvider store={store}>
+      <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+        <RouterProvider router={router} />
+        <Toaster richColors />
+      </ThemeProvider>
+    </ReduxProvider>
   );
 };
 
