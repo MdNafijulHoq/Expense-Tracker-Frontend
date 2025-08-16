@@ -1,5 +1,5 @@
 import ComponentLayout from "@/components/layout/ComponentLayout";
-import ErrorPage from "@/pages/Errorpage";
+import ErrorPage from "@/pages/ErrorPage";
 import Expenses from "@/pages/Expenses";
 import Homepage from "@/pages/Homepage";
 import LogIn from "@/pages/LogIn";

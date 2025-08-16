@@ -28,7 +28,7 @@ const navigationLinks = [
 
 export default function Navbar() {
   const { data } = useUserInfoQuery(undefined);
-  console.log("Fetch user data ->", data);
+  // console.log("Fetch user data ->", data);
   const [logout] = useLogoutMutation();
   const dispatch = useDispatch();
 
@@ -93,11 +93,9 @@ export default function Navbar() {
           </Popover>
           {/* Main nav */}
           <div className="flex items-center gap-6">
-            <a href="#" className="text-primary hover:text-primary/90">
-              <Link to="/">
-                <Logo />
-              </Link>
-            </a>
+            <Link to="/" className="text-primary hover:text-primary/90">
+              <Logo />
+            </Link>
             {/* Navigation menu */}
             <NavigationMenu className="max-md:hidden">
               <NavigationMenuList className="gap-2">
@@ -113,7 +111,7 @@ export default function Navbar() {
           </div>
         </div>
         {/* Right side */}
-         <div className="flex items-center gap-5">
+        <div className="flex items-center gap-5">
           <ModeToggler />
           {data?.data?.email && (
             <Button
